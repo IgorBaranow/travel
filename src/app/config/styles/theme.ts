@@ -3,10 +3,14 @@ import { createTheme } from "@mui/material";
 import { FontFamilies } from "./FontFamilies";
 import { FontWeights } from "./FontWeights";
 
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
     primary: {
       main: "#729E65",
+    },
+    text: {
+      primary: "#223644",
+      secondary: "#64727C",
     },
   },
 });
