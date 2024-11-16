@@ -1,9 +1,10 @@
-import { createTheme } from "@mui/material";
+import { type LinkProps, createTheme } from "@mui/material";
 
 import { FontFamilies } from "./FontFamilies";
 import { FontWeights } from "./FontWeights";
+import LinkBehavior from "./LinkBehavior";
 
-export const theme = createTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: "#729E65",
@@ -11,6 +12,39 @@ export const theme = createTheme({
     text: {
       primary: "#223644",
       secondary: "#64727C",
+    },
+  },
+  components: {
+    MuiInputBase: {
+      defaultProps: {
+        style: {
+          fontFamily: FontFamilies.poppins,
+          fontWeight: FontWeights.regular,
+          fontSize: "1rem",
+          lineHeight: "1.5rem",
+        },
+      },
+    },
+    // override default styles of MIU
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontSize: "0.875rem",
+          lineHeight: "1.313rem",
+          fontFamily: FontFamilies.roboto,
+        },
+      },
+    },
+    // use React link with MIU link to prevent re-rendering
+    MuiLink: {
+      defaultProps: {
+        component: LinkBehavior,
+      } as LinkProps,
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: LinkBehavior,
+      },
     },
   },
 });

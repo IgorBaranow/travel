@@ -1,17 +1,18 @@
-import LoginForm from "@features/auth/LoginForm";
 import { Typography } from "@mui/material";
+
+import { APP_NAME } from "@config/constants";
+import LoginForm from "@features/auth/components/LoginForm";
 
 export default function LoginPage() {
   return (
-    <div>
-      <Typography
-        component="h1"
-        variant="h4"
-        sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
-      >
-        Sign in
+    <>
+      <Typography component="h1" variant="h2" mb={1}>
+        Login
       </Typography>
-      <LoginForm />;
-    </div>
+      <Typography color="text.secondary" mb={4}>
+        Login to access {APP_NAME}
+      </Typography>
+      <LoginForm />
+    </>
   );
 }
