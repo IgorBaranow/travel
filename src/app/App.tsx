@@ -1,3 +1,4 @@
+import { SnackbarProvider } from "notistack";
 import { BrowserRouter } from "react-router-dom";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -10,7 +11,9 @@ export default function App() {
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppRouter />
+        <SnackbarProvider>
+          <AppRouter />
+        </SnackbarProvider>
       </ThemeProvider>
     </BrowserRouter>
   );

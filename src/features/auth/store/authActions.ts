@@ -23,8 +23,10 @@ export const registerUser = createAsyncThunk<
   try {
     await register(user.name, user.email, user.password);
   } catch (error) {
-    rejectWithValue("Error");
-    console.log(error);
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    }
+    return rejectWithValue("Something went wrong!");
   }
 });
 
@@ -34,11 +36,13 @@ export const loginUser = createAsyncThunk<
   {
     rejectValue: string;
   }
->("auth/register", async (user, { rejectWithValue }) => {
+>("auth/login", async (user, { rejectWithValue }) => {
   try {
     await login(user.email, user.password);
   } catch (error) {
-    rejectWithValue("Error");
-    console.log(error);
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    }
+    return rejectWithValue("Something went wrong!");
   }
 });

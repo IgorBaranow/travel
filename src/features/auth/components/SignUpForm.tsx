@@ -4,6 +4,9 @@ import { Box, Link, Stack, TextField, Typography } from "@mui/material";
 
 import { AppRoutes } from "@config/routes/";
 import AppButton from "@features/ui/AppButton";
+import { useAppDispatch } from "@store/index";
+
+import { registerUser } from "../store/authActions";
 
 interface FormInput {
   name: string;
@@ -13,16 +16,24 @@ interface FormInput {
 }
 
 export default function SignUpForm() {
+  const dispatch = useAppDispatch();
   const { handleSubmit, control } = useForm<FormInput>({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
+      PasswordConfirm: "",
     },
   });
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    console.log(data);
-    // DOTO: Register user with firebase
+    dispatch(
+      registerUser({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      }),
+    );
   };
 
   return (
