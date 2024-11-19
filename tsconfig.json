@@ -23,7 +23,8 @@
       "@pages/*": ["src/pages/*"],
       "@features/*": ["src/features/*"],
       "@config/*": ["src/app/config/*"],
-      "@store/*": ["src/app/store/*"]
+      "@store/*": ["src/app/store/*"],
+      "@services/*": ["src/app/services/*"]
     }
   },
   "include": ["src"],
