@@ -1,14 +1,15 @@
 import { Controller, type SubmitHandler, useForm } from "react-hook-form";
+import { Navigate } from "react-router-dom";
 
 import { Box, Link, Stack, TextField, Typography } from "@mui/material";
 
 import { AppRoutes } from "@config/routes/";
 import AppButton from "@features/ui/AppButton";
 import { auth } from "@services/firebase";
-import { useAppDispatch } from "@store/index";
+import { useAppDispatch, useAppSelector } from "@store/index";
 
 import { registerUser } from "../store/authActions";
-import { setUserName } from "../store/authSlice";
+import { selectUser, setUserName } from "../store/authSlice";
 
 interface FormInput {
   name: string;
@@ -18,28 +19,12 @@ interface FormInput {
 }
 
 export default function SignUpForm() {
-  const dispatch = useAppDispatch();
-  const { handleSubmit, control, watch } = useForm<FormInput>({
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      PasswordConfirm: "",
-    },
-  });
-  const password = watch("password");
+  const user = useAppSelector(selectUser);
+  const { handleSubmit, control, password, onSubmit } = useSignUpForm();
 
-  const onSubmit: SubmitHandler<FormInput> = async (data) => {
-    await dispatch(
-      registerUser({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      }),
-    ).unwrap();
-    dispatch(setUserName(auth.currentUser?.displayName));
-  };
-
+  if (user) {
+    return <Navigate to={AppRoutes.dashboard} replace />;
+  }
   return (
     <Box
       component="form"
@@ -156,4 +141,35 @@ export default function SignUpForm() {
       </Stack>
     </Box>
   );
+}
+
+function useSignUpForm() {
+  const { handleSubmit, control, watch } = useForm<FormInput>({
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      PasswordConfirm: "",
+    },
+  });
+  const dispatch = useAppDispatch();
+
+  const password = watch("password");
+
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    await dispatch(
+      registerUser({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      }),
+    ).unwrap();
+    dispatch(setUserName(auth.currentUser?.displayName));
+  };
+  return {
+    handleSubmit,
+    control,
+    password,
+    onSubmit,
+  };
 }

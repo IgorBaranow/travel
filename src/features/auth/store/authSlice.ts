@@ -1,7 +1,8 @@
 import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-// import { RootState } from "@store/types";
-import { registerUser } from "./authActions";
+import { RootState } from "@store/types";
+
+import { loginUser, registerUser } from "./authActions";
 
 interface UserInfo {
   uid: string;
@@ -49,10 +50,21 @@ export const authSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.status = "failed";
-        console.log(action);
         state.error = action.payload;
       })
       .addCase(registerUser.fulfilled, (state) => {
+        state.status = "succeeded";
+        state.error = null;
+      })
+      .addCase(loginUser.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(loginUser.fulfilled, (state) => {
         state.status = "succeeded";
         state.error = null;
       }),
@@ -60,6 +72,6 @@ export const authSlice = createSlice({
 
 export const { userLoaded, logout, setUserName } = authSlice.actions;
 
-// export const selectCount = (state: RootState) => state.counter.value;
+export const selectUser = (state: RootState) => state.auth.user;
 
 export default authSlice.reducer;
