@@ -1,11 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 // import { RootState } from "@store/types";
 import { registerUser } from "./authActions";
 
-// Define a type for the slice state
+interface UserInfo {
+  uid: string;
+  email: string;
+  displayName: string | null | undefined;
+}
 interface AuthState {
-  user: any;
+  user: UserInfo | null;
   status: "loading" | "idle" | "failed" | "succeeded";
   error?: string | null;
 }
@@ -20,7 +24,23 @@ const initialState: AuthState = {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    userLoaded: (state, action: PayloadAction<UserInfo>) => {
+      state.user = action.payload;
+      state.status = "succeeded";
+      state.error = null;
+    },
+    logout: (state) => {
+      state.user = null;
+      state.status = "idle";
+      state.error = null;
+    },
+    setUserName: (state, action: PayloadAction<string | null | undefined>) => {
+      if (state.user) {
+        state.user.displayName = action.payload;
+      }
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(registerUser.pending, (state) => {
@@ -38,7 +58,7 @@ export const authSlice = createSlice({
       }),
 });
 
-// export const { increment } = counterSlice.actions;
+export const { userLoaded, logout, setUserName } = authSlice.actions;
 
 // export const selectCount = (state: RootState) => state.counter.value;
 

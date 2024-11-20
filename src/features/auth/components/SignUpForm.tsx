@@ -4,9 +4,11 @@ import { Box, Link, Stack, TextField, Typography } from "@mui/material";
 
 import { AppRoutes } from "@config/routes/";
 import AppButton from "@features/ui/AppButton";
+import { auth } from "@services/firebase";
 import { useAppDispatch } from "@store/index";
 
 import { registerUser } from "../store/authActions";
+import { setUserName } from "../store/authSlice";
 
 interface FormInput {
   name: string;
@@ -17,7 +19,7 @@ interface FormInput {
 
 export default function SignUpForm() {
   const dispatch = useAppDispatch();
-  const { handleSubmit, control } = useForm<FormInput>({
+  const { handleSubmit, control, watch } = useForm<FormInput>({
     defaultValues: {
       name: "",
       email: "",
@@ -25,15 +27,17 @@ export default function SignUpForm() {
       PasswordConfirm: "",
     },
   });
+  const password = watch("password");
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
-    dispatch(
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    await dispatch(
       registerUser({
         name: data.name,
         email: data.email,
         password: data.password,
       }),
-    );
+    ).unwrap();
+    dispatch(setUserName(auth.currentUser?.displayName));
   };
 
   return (
@@ -109,7 +113,13 @@ export default function SignUpForm() {
       <Controller
         name="PasswordConfirm"
         control={control}
-        rules={{ required: "Please confirm your password!" }}
+        rules={{
+          required: "Please confirm your password!",
+          validate: (confirmPassword) =>
+            confirmPassword !== password
+              ? "Passwords doesn't match!"
+              : undefined,
+        }}
         render={({ field, fieldState }) => (
           <TextField
             variant="standard"
