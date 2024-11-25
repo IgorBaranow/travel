@@ -1,5 +1,6 @@
 export function mapAuthCodeToMessage(errorCode: string) {
   let errorMessage = "An unknown error occurred. Please try again.";
+  console.log(errorCode);
   switch (errorCode) {
     case "auth/email-already-exists":
       errorMessage = "User with this email address already exists.";
@@ -20,6 +21,7 @@ export function mapAuthCodeToMessage(errorCode: string) {
     case "auth/user-not-found":
     case "auth/wrong-password":
     case "auth/invalid-login-credentials":
+    case "auth/invalid-credential":
       errorMessage = "Invalid email or password.";
       break;
     default:

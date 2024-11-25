@@ -1,9 +1,11 @@
-import { Button, type SxProps, type Theme, Typography } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import { type SxProps, type Theme, Typography } from "@mui/material";
 
 interface Props {
   type: "button" | "submit" | "reset";
   variant?: "text" | "contained" | "outlined";
   children: React.ReactNode;
+  loading?: boolean;
   fullWidth?: boolean;
   sx?: SxProps<Theme>;
 }
@@ -13,12 +15,14 @@ export default function AppButton({
   variant = "contained",
   children,
   fullWidth,
+  loading,
   sx,
 }: Props) {
   return (
-    <Button
+    <LoadingButton
       type={type}
       variant={variant}
+      loading={loading}
       fullWidth={fullWidth}
       sx={{
         borderRadius: 2,
@@ -30,6 +34,6 @@ export default function AppButton({
     >
       <Typography component="span"></Typography>
       {children}
-    </Button>
+    </LoadingButton>
   );
 }
