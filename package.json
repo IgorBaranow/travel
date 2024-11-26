@@ -14,8 +14,13 @@
     "@emotion/styled": "11.13.0",
     "@mui/icons-material": "6.1.6",
     "@mui/material": "5.14.17",
+    "@reduxjs/toolkit": "2.3.0",
+    "firebase": "11.0.2",
+    "notistack": "^3.0.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "react-hook-form": "7.53.2",
+    "react-redux": "9.1.2",
     "react-router-dom": "6.27.0"
   },
   "devDependencies": {
@@ -41,3 +46,4 @@
     "vite": "5.4.10"
   }
 }
+

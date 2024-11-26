@@ -1,12 +1,46 @@
-import { createTheme } from "@mui/material";
+import { type LinkProps, createTheme } from "@mui/material";
 
 import { FontFamilies } from "./FontFamilies";
 import { FontWeights } from "./FontWeights";
+import LinkBehavior from "./LinkBehavior";
 
 const theme = createTheme({
   palette: {
     primary: {
       main: "#729E65",
+    },
+  },
+  components: {
+    MuiInputBase: {
+      defaultProps: {
+        style: {
+          fontFamily: FontFamilies.poppins,
+          fontWeight: FontWeights.regular,
+          fontSize: "1rem",
+          lineHeight: "1.5rem",
+        },
+      },
+    },
+    // override default styles of MIU
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontSize: "0.875rem",
+          lineHeight: "1.313rem",
+          fontFamily: FontFamilies.roboto,
+        },
+      },
+    },
+    // use React link with MIU link to prevent re-rendering
+    MuiLink: {
+      defaultProps: {
+        component: LinkBehavior,
+      } as LinkProps,
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: LinkBehavior,
+      },
     },
   },
 });
