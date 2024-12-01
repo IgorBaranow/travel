@@ -62,8 +62,10 @@ const StyledDrawer = styled(Drawer, {
 const TOOLBAR_STYLES = { mt: 2, mb: 1 };
 
 export default function AccountLayout() {
+
   const { md, xl } = useBreakpoints();
   const [isOpen, setOpen] = useState(xl);
+
 
   const closeDrawer = () => {
     setOpen(false);
