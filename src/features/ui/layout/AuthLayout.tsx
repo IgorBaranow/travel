@@ -8,7 +8,6 @@ import SignInBackground from "@features/auth/assets/sign-up-background.png";
 import Logo from "../logo/Logo";
 
 export default function AuthLayout() {
-  // Extract location to detect on which page user is
   const location = useLocation();
   const isLoginPage = location.pathname == "/login";
   return (

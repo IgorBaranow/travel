@@ -65,6 +65,10 @@ export default function AccountLayout() {
   const { md, xl } = useBreakpoints();
   const [isOpen, setOpen] = useState(xl);
 
+  const { md, xl } = useBreakpoints();
+  const [isOpen, setOpen] = useState(xl);
+
+
   const closeDrawer = () => {
     setOpen(false);
   };
