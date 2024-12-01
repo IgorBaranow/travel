@@ -11,7 +11,7 @@ export const rtkQueryErrorLogger: Middleware = () => (next) => (action) => {
   if (isRejectedWithValue(action)) {
     const message = isSnackbarMessage(action.payload)
       ? action.payload
-      : "An error occurred";
+      : "An error occurred"; // Default message
 
     enqueueSnackbar(message, {
       variant: "error",
