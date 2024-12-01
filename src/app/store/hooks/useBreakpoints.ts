@@ -9,7 +9,4 @@ export function useBreakpoints() {
   const xl = useMediaQuery(theme.breakpoints.up("xl"));
 
   return { sm, md, lg, xl };
-  const lg = useMediaQuery(theme.breakpoints.up("lg"));
-  const xl = useMediaQuery(theme.breakpoints.up("xl"));
-  return { sm, md, lg, xl };
 }
