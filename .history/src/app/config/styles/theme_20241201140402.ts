@@ -43,6 +43,39 @@ const theme = createTheme({
       },
     },
   },
+  components: {
+    MuiInputBase: {
+      defaultProps: {
+        style: {
+          fontFamily: FontFamilies.poppins,
+          fontWeight: FontWeights.regular,
+          fontSize: "1rem",
+          lineHeight: "1.5rem",
+        },
+      },
+    },
+    // override default styles of MIU
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontSize: "0.875rem",
+          lineHeight: "1.313rem",
+          fontFamily: FontFamilies.roboto,
+        },
+      },
+    },
+    // use React link with MIU link to prevent re-rendering
+    MuiLink: {
+      defaultProps: {
+        component: LinkBehavior,
+      } as LinkProps,
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: LinkBehavior,
+      },
+    },
+  },
 });
 
 theme.typography.h1 = {
