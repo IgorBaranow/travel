@@ -28,6 +28,7 @@ const theme = createTheme({
         },
       },
     },
+    // override default styles of MIU
     MuiInputLabel: {
       styleOverrides: {
         root: {
@@ -37,6 +38,7 @@ const theme = createTheme({
         },
       },
     },
+    // use React link with MIU link to prevent re-rendering
     MuiLink: {
       defaultProps: {
         component: LinkBehavior,
@@ -48,7 +50,7 @@ const theme = createTheme({
       },
     },
   },
-});
+},
 
 theme.typography.h1 = {
   fontSize: "2rem",

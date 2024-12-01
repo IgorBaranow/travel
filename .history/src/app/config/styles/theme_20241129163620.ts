@@ -9,12 +9,38 @@ const theme = createTheme({
     primary: {
       main: "#729E65",
     },
-    text: {
-      primary: "#223644",
-      secondary: "#64727C",
+  },
+  components: {
+    MuiInputBase: {
+      defaultProps: {
+        style: {
+          fontFamily: FontFamilies.poppins,
+          fontWeight: FontWeights.regular,
+          fontSize: "1rem",
+          lineHeight: "1.5rem",
+        },
+      },
     },
-    grey: {
-      [100]: "#F9F9F9",
+    // override default styles of MIU
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontSize: "0.875rem",
+          lineHeight: "1.313rem",
+          fontFamily: FontFamilies.roboto,
+        },
+      },
+    },
+    // use React link with MIU link to prevent re-rendering
+    MuiLink: {
+      defaultProps: {
+        component: LinkBehavior,
+      } as LinkProps,
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: LinkBehavior,
+      },
     },
   },
   components: {
@@ -28,6 +54,7 @@ const theme = createTheme({
         },
       },
     },
+    // override default styles of MIU
     MuiInputLabel: {
       styleOverrides: {
         root: {
@@ -37,6 +64,7 @@ const theme = createTheme({
         },
       },
     },
+    // use React link with MIU link to prevent re-rendering
     MuiLink: {
       defaultProps: {
         component: LinkBehavior,

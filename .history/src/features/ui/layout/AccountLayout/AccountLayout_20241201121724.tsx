@@ -17,7 +17,7 @@ import {
 
 import { theme } from "@config/styles";
 import AppIconButton from "@features/ui/AppIconButton";
-import { useBreakpoints } from "@store/hooks/useBreakpoints";
+import { useBreakpoints } from "@hooks/useBreakpoints";
 
 import AccountSidebar from "./AccountSidebar";
 

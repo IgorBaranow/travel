@@ -15,8 +15,9 @@ interface Props {
 }
 
 export default function AppButton({
-  type = "button",
-  variant = "contained",
+  type,
+  type = 'button',
+  variant = 'contained',
   fullWidth,
   loading,
   LinkComponent,
@@ -39,7 +40,7 @@ export default function AppButton({
       sx={{
         borderRadius: 2,
         height: { xs: 48, md: 56 },
-        textTransform: "none",
+        textTransform: 'none',
         ...sx,
       }}
     >
