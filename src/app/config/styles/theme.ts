@@ -9,6 +9,13 @@ const theme = createTheme({
     primary: {
       main: "#729E65",
     },
+    text: {
+      primary: "#223644",
+      secondary: "#64727C",
+    },
+    grey: {
+      [100]: "#F9F9F9",
+    },
   },
   components: {
     MuiInputBase: {
@@ -21,7 +28,6 @@ const theme = createTheme({
         },
       },
     },
-    // override default styles of MIU
     MuiInputLabel: {
       styleOverrides: {
         root: {
@@ -31,7 +37,6 @@ const theme = createTheme({
         },
       },
     },
-    // use React link with MIU link to prevent re-rendering
     MuiLink: {
       defaultProps: {
         component: LinkBehavior,
