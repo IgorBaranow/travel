@@ -148,7 +148,7 @@ export default function AccountLayout() {
         sx={{
           width: "100%",
           bgcolor: "grey.100",
-          minHeight: "100vh",
+          minHeight: { xs: "calc(100vh - 10rem", md: "100vh" },
           height: "auto",
           px: {
             xs: 2,
