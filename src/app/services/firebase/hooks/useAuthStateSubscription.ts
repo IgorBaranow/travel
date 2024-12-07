@@ -7,7 +7,7 @@ import { useAppDispatch } from "@store/index";
 export function useAuthStateSubscription() {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const authStateListenerUnsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         const userInfo = {
           displayName: user.displayName,
@@ -19,6 +19,8 @@ export function useAuthStateSubscription() {
         dispatch(logout());
       }
     });
+    // CleanUpFunction
+    return () => authStateListenerUnsubscribe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
