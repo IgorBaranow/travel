@@ -13,14 +13,14 @@ export default function AddTripWizzard() {
         sx={{
           bgcolor: "white",
           p: { xs: 2, md: 3 },
-          pb: { xs: 15, md: 13 },
+          pb: { xs: 10, md: 13 },
           borderRadius: 4,
           maxWidth: 926,
           mx: "auto",
           position: "relative",
         }}
       >
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
+        <Typography color="text.secondary" sx={{ mb: 1 }}>
           Step {activeStep + 1}
         </Typography>
         <Typography variant="h4" sx={{ mb: { xs: 3, md: 1 } }}>
@@ -29,14 +29,14 @@ export default function AddTripWizzard() {
         <Typography
           variant="subtitle1"
           color="text.secondary"
-          sx={{ display: { xs: "none", md: "block" } }}
+          sx={{ display: { xs: "none", md: "block" }, mb: 3 }}
         >
           {WIZARD_STEPS[activeStep].description}
         </Typography>
         <Box
           sx={{
-            maxHeight: { sx: "58vh", md: "40vh" },
-            minHeight: { sx: "58vh", md: "40vh" },
+            minHeight: { xs: "56vh", md: "auto" },
+            maxHeight: { xs: "56vh", md: "40vh" },
           }}
         >
           <StepComponent />
