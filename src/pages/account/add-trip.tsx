@@ -1,5 +1,11 @@
+import AddTripWizzard from "@features/trip/add-trip/components/AddTripWizzard";
+
 function AddTripPage() {
-  return <div>AddTripPage</div>;
+  return (
+    <div>
+      <AddTripWizzard />
+    </div>
+  );
 }
 
 export default AddTripPage;

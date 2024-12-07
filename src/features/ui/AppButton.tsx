@@ -8,6 +8,7 @@ interface Props {
   loading?: boolean;
   fullWidth?: boolean;
   endIcon?: React.ReactNode;
+  startIcon?: React.ReactNode;
   onClick?: () => void;
   LinkComponent?: React.ElementType;
   href?: string;
@@ -23,6 +24,7 @@ export default function AppButton({
   LinkComponent,
   href,
   endIcon,
+  startIcon,
   sx,
   onClick,
 }: Props) {
@@ -34,6 +36,7 @@ export default function AppButton({
       fullWidth={fullWidth}
       LinkComponent={LinkComponent}
       href={href}
+      startIcon={startIcon}
       endIcon={endIcon}
       onClick={onClick}
       sx={{

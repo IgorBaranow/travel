@@ -11,7 +11,15 @@ export default function AuthLayout() {
   const location = useLocation();
   const isLoginPage = location.pathname == "/login";
   return (
-    <Grid container component="main" sx={{ height: "100vh" }}>
+    <Grid
+      container
+      component="main"
+      sx={{
+        minHeight: { md: "100vh" },
+        maxHeight: { xs: "-webkit-fill-available", md: "auto" },
+        height: { xs: "100vh", md: "auto" },
+      }}
+    >
       <Grid
         item
         xs={false}
