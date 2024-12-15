@@ -3,7 +3,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { MobileStepper } from "@mui/material";
 
 import AppButton from "@features/ui/AppButton";
-import { useBreakpoints } from "@store/hooks/useBreakpoints";
+import { useBreakpoints } from "@hooks/useBreakpoints";
 
 import { WIZARD_STEPS } from "../../data";
 

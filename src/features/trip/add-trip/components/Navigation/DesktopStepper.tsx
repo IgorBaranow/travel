@@ -1,6 +1,6 @@
 import { Step, StepLabel, Stepper } from "@mui/material";
 
-import { useBreakpoints } from "@store/hooks/useBreakpoints";
+import { useBreakpoints } from "@hooks/useBreakpoints";
 
 import { WizardSteps } from "../../type";
 
