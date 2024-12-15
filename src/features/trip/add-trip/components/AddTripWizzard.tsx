@@ -13,7 +13,7 @@ export default function AddTripWizzard() {
         sx={{
           bgcolor: "white",
           p: { xs: 2, md: 3 },
-          pb: { xs: 10, md: 13 },
+          pb: { xs: 8, md: 3 },
           borderRadius: 4,
           maxWidth: 926,
           mx: "auto",

@@ -20,8 +20,8 @@ import { Colors, theme } from "@config/styles";
 import { selectUser } from "@features/auth/store/authSlice";
 import AppButton from "@features/ui/AppButton";
 import Logo from "@features/ui/logo/Logo";
+import { useBreakpoints } from "@hooks/useBreakpoints";
 import { logOut } from "@services/api";
-import { useBreakpoints } from "@store/hooks/useBreakpoints";
 import { useAppSelector } from "@store/index";
 
 import { ACCOUNT_LINKS } from "./data";
