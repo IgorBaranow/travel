@@ -41,8 +41,12 @@ export default function AppButton({
       onClick={onClick}
       sx={{
         borderRadius: 2,
-        height: { xs: 48, md: 56 },
+        height: {
+          xs: variant === "text" ? 42 : 48,
+          md: variant === "text" ? 48 : 56,
+        },
         textTransform: "none",
+        width: fullWidth ? "100%" : "fit-content",
         ...sx,
       }}
     >

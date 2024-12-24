@@ -12,7 +12,7 @@ import { previousStep, selectCurrentStep } from "../../store/tripWizardSlice";
 export default function Pagination() {
   const dispatch = useAppDispatch();
   const { md, lg } = useBreakpoints();
-  const activeStep = useAppSelector(selectCurrentStep);
+  const currentStep = useAppSelector(selectCurrentStep);
 
   const onBackButtonClick = () => dispatch(previousStep());
 
@@ -21,7 +21,7 @@ export default function Pagination() {
       variant={lg ? "dots" : "text"}
       steps={WIZARD_STEPS.length}
       position="static"
-      activeStep={activeStep}
+      activeStep={currentStep}
       nextButton={
         <AppButton fullWidth={!md} type="submit" endIcon={<ArrowForwardIcon />}>
           Next
@@ -33,7 +33,7 @@ export default function Pagination() {
           fullWidth={!md}
           variant="outlined"
           startIcon={<ArrowBackIcon />}
-          sx={{ visibility: activeStep === 0 ? "hidden" : "visible" }}
+          sx={{ visibility: currentStep === 0 ? "hidden" : "visible" }}
         >
           Back
         </AppButton>

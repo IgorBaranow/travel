@@ -7,11 +7,11 @@ import { selectCurrentStep } from "../store/tripWizardSlice";
 import DesktopStepper from "./Navigation/DesktopStepper";
 
 export default function AddTripWizzard() {
-  const activeStep = useAppSelector(selectCurrentStep);
-  const StepComponent = WIZARD_STEPS[activeStep].Component;
+  const currentStep = useAppSelector(selectCurrentStep);
+  const StepComponent = WIZARD_STEPS[currentStep].Component;
   return (
     <Box>
-      <DesktopStepper steps={WIZARD_STEPS} activeStep={activeStep} />
+      <DesktopStepper steps={WIZARD_STEPS} currentStep={currentStep} />
       <Box
         sx={{
           bgcolor: "white",
@@ -24,17 +24,17 @@ export default function AddTripWizzard() {
         }}
       >
         <Typography color="text.secondary" sx={{ mb: 1 }}>
-          Step {activeStep + 1}
+          Step {currentStep + 1}
         </Typography>
         <Typography variant="h4" sx={{ mb: { xs: 3, md: 1 } }}>
-          {WIZARD_STEPS[activeStep].title}
+          {WIZARD_STEPS[currentStep].title}
         </Typography>
         <Typography
           variant="subtitle1"
           color="text.secondary"
           sx={{ display: { xs: "none", md: "block" }, mb: 3 }}
         >
-          {WIZARD_STEPS[activeStep].description}
+          {WIZARD_STEPS[currentStep].description}
         </Typography>
         <Box
           sx={{
