@@ -13,7 +13,7 @@ export interface Expense {
 }
 export interface Place {
   id: string;
-  text: string;
+  name: string;
   isChecked: boolean;
 }
 export interface TripFile {
