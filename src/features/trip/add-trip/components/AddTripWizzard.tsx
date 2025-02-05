@@ -6,9 +6,10 @@ import { WIZARD_STEPS } from "../data";
 import { selectCurrentStep } from "../store/tripWizardSlice";
 import DesktopStepper from "./Navigation/DesktopStepper";
 
-export default function AddTripWizzard() {
+export default function AddTripWizard() {
   const currentStep = useAppSelector(selectCurrentStep);
-  const StepComponent = WIZARD_STEPS[currentStep].Component;
+  const stepData = WIZARD_STEPS[currentStep];
+  const StepComponent = stepData.Component;
   return (
     <Box>
       <DesktopStepper steps={WIZARD_STEPS} currentStep={currentStep} />
@@ -16,7 +17,7 @@ export default function AddTripWizzard() {
         sx={{
           bgcolor: "white",
           p: { xs: 2, md: 3 },
-          pb: { xs: 8, md: 3 },
+          pb: { xs: 10, md: 13 },
           borderRadius: 4,
           maxWidth: 926,
           mx: "auto",
@@ -27,19 +28,20 @@ export default function AddTripWizzard() {
           Step {currentStep + 1}
         </Typography>
         <Typography variant="h4" sx={{ mb: { xs: 3, md: 1 } }}>
-          {WIZARD_STEPS[currentStep].title}
+          {stepData.title}
         </Typography>
         <Typography
           variant="subtitle1"
           color="text.secondary"
-          sx={{ display: { xs: "none", md: "block" }, mb: 3 }}
+          sx={{ display: { xs: "none", md: "block" }, mb: 3, maxWidth: "72%" }}
         >
-          {WIZARD_STEPS[currentStep].description}
+          {stepData.description}
         </Typography>
         <Box
           sx={{
             minHeight: { xs: "56vh", md: "auto" },
             maxHeight: { xs: "56vh", md: "40vh" },
+            overflowY: "scroll",
           }}
         >
           <StepComponent />

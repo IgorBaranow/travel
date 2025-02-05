@@ -27,6 +27,8 @@ export default function PreviewImageDialog({ isOpen, onClose, onSave }: Props) {
       isOpen={isOpen}
       onClose={onClose}
       onPrimaryButtonClick={onSaveClick}
+      children={undefined}
+      isForm={false}
     >
       <Grid container spacing={{ xs: 0.5, md: 1.5 }} columns={{ xs: 2, md: 3 }}>
         {TRIP_PREVIEW_IMAGES.map((image) => (

@@ -21,6 +21,7 @@ interface FormInput {
 export default function PlacesForm(props: Props) {
   const { places, handleSubmit, control, errors, onInputKeyDown } =
     usePlacesForm(props);
+
   return (
     <Stack
       component="form"
@@ -92,6 +93,7 @@ function usePlacesForm({ defaultPlaces }: Props) {
     control,
     name: "places",
   });
+
   const onInputKeyDown = (
     event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
     index: number,
