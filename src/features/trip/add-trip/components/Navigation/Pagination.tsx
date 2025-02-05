@@ -43,13 +43,14 @@ export default function Pagination() {
           visibility: "hidden",
         },
         display: "flex",
+        gap: 2,
         whiteSpace: "nowrap",
+        position: "absolute",
         bottom: 0,
         left: 0,
         width: "100%",
         p: { xs: 2, md: 3 },
         borderRadius: 4,
-        gap: 2,
       }}
     />
   );
