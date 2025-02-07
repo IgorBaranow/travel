@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import {
   Controller,
   type SubmitHandler,
@@ -7,6 +7,8 @@ import {
 } from "react-hook-form";
 
 import { Stack } from "@mui/material";
+
+import useToast from "@store/hooks/useToast";
 
 import { MAX_FILE_SIZE_MB } from "../../constants";
 import type { TripFile } from "../../types";
@@ -24,45 +26,62 @@ interface FormInput {
 }
 
 export default function FilesForm(props: Props) {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const { files, onSubmit, handleSubmit, control, onFileInputChange } =
-    useFilesUploadForm(props);
+  const {
+    files,
+    onSubmit,
+    handleSubmit,
+    control,
+    onFileInputChange,
+    onFileRemove,
+    onFileAdd,
+    fileInputRef,
+  } = useFilesUploadForm(props);
 
   return (
     <Stack
       component="form"
+      direction="row"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
+      flexWrap="wrap"
       sx={{ width: "100%" }}
-      gap={3}
+      gap={2}
     >
       <UploadFileButton
-        onClick={() => fileInputRef.current?.click()}
+        onClick={onFileAdd}
         mainText={"Upload document "}
         subText={`PDF (max. ${MAX_FILE_SIZE_MB}MB)`}
         showSubText
         sx={{ width: { xs: "100%", md: 200 }, height: { xs: 140, md: 260 } }}
       />
-      <Controller
-        name="files.0"
-        control={control}
-        rules={{ required: "Please specify trip name!" }}
-        render={({ field }) => (
-          <input
-            ref={fileInputRef}
-            type="file"
-            id="fileInput"
-            hidden
-            onChange={(event) => onFileInputChange(event, field.onChange)}
-          />
-        )}
-      />
-      {files.map((file) => {
-        const showCard = Boolean(file);
-        if (!showCard) {
-          return null;
-        }
-        return <DocumentCard name={file.fileName} url={file.url} />;
+
+      {files.map((file, index) => {
+        const showCard = Boolean(file?.url);
+        return (
+          <Fragment key={file.fileName}>
+            {showCard && (
+              <DocumentCard
+                name={file.fileName}
+                url={file.url}
+                onRemoveClick={() => onFileRemove(index)}
+              />
+            )}
+            <Controller
+              name={`files.${index}`}
+              control={control}
+              rules={{ required: "Please specify trip name!" }}
+              render={({ field }) => (
+                <input
+                  ref={index === files.length - 1 ? fileInputRef : null}
+                  type="file"
+                  id="fileInput"
+                  hidden
+                  onChange={(event) => onFileInputChange(event, field.onChange)}
+                />
+              )}
+            />
+          </Fragment>
+        );
       })}
       {props.SubmitComponent}
     </Stack>
@@ -70,6 +89,8 @@ export default function FilesForm(props: Props) {
 }
 
 function useFilesUploadForm({ defaultFiles }: Props) {
+  const { showErrorMessage } = useToast();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { watch, handleSubmit, control } = useForm<FormInput>({
     defaultValues: {
       files: defaultFiles,
@@ -85,6 +106,17 @@ function useFilesUploadForm({ defaultFiles }: Props) {
     console.log(data);
   };
 
+  const onFileRemove = (index: number) => {
+    remove(index);
+  };
+
+  const onFileAdd = () => {
+    if (files.length === 0 || files[files.length - 1]?.fileName) {
+      append({ fileName: "" });
+    }
+    setTimeout(() => fileInputRef.current?.click(), 0);
+  };
+
   const onFileInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     onChange: (newFile: TripFile) => void,
@@ -93,6 +125,16 @@ function useFilesUploadForm({ defaultFiles }: Props) {
     if (!file) {
       return;
     }
+
+    if (files.find((existingFile) => existingFile.fileName === file.name)) {
+      if (!files[files.length - 1].fileName) {
+        onFileRemove(files.length - 1);
+      }
+      return showErrorMessage(
+        "You've already uploaded file with the same name!",
+      );
+    }
+
     onChange({
       fileName: file?.name,
       url: URL.createObjectURL(file), // create a local URL to the file that I added to the input. Generates temperarry URL through which I am able to access the file.
@@ -105,5 +147,8 @@ function useFilesUploadForm({ defaultFiles }: Props) {
     files,
     control,
     onFileInputChange,
+    onFileRemove,
+    fileInputRef,
+    onFileAdd,
   };
 }
