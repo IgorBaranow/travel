@@ -8,10 +8,11 @@ import {
 
 import { Stack } from "@mui/material";
 
+import { useFileUpload } from "@services/firebase";
 import useToast from "@store/hooks/useToast";
 
 import { MAX_FILE_SIZE_MB } from "../../constants";
-import type { TripFile } from "../../types";
+import type { DocumentToUpload, TripFile } from "../../types";
 import DocumentCard from "./DocumentCard";
 import UploadFileButton from "./UploadFileButton";
 
@@ -22,7 +23,7 @@ interface Props {
 }
 
 interface FormInput {
-  files: TripFile[];
+  files: DocumentToUpload[];
 }
 
 export default function FilesForm(props: Props) {
@@ -35,6 +36,7 @@ export default function FilesForm(props: Props) {
     onFileRemove,
     onFileAdd,
     fileInputRef,
+    uploadProgresses,
   } = useFilesUploadForm(props);
 
   return (
@@ -64,6 +66,7 @@ export default function FilesForm(props: Props) {
                 name={file.fileName}
                 url={file.url}
                 onRemoveClick={() => onFileRemove(index)}
+                uploadProgress={uploadProgresses[index]}
               />
             )}
             <Controller
@@ -89,6 +92,7 @@ export default function FilesForm(props: Props) {
 }
 
 function useFilesUploadForm({ defaultFiles }: Props) {
+  const { uploadFiles, uploadProgresses } = useFileUpload();
   const { showErrorMessage } = useToast();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { watch, handleSubmit, control } = useForm<FormInput>({
@@ -103,7 +107,7 @@ function useFilesUploadForm({ defaultFiles }: Props) {
   });
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    console.log(data);
+    uploadFiles("documents", data.files);
   };
 
   const onFileRemove = (index: number) => {
@@ -119,7 +123,7 @@ function useFilesUploadForm({ defaultFiles }: Props) {
 
   const onFileInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    onChange: (newFile: TripFile) => void,
+    onChange: (newFile: DocumentToUpload) => void,
   ) => {
     const file = event.target.files?.[0];
     if (!file) {
@@ -138,6 +142,7 @@ function useFilesUploadForm({ defaultFiles }: Props) {
     onChange({
       fileName: file?.name,
       url: URL.createObjectURL(file), // create a local URL to the file that I added to the input. Generates temperarry URL through which I am able to access the file.
+      file,
     });
   };
 
@@ -150,5 +155,6 @@ function useFilesUploadForm({ defaultFiles }: Props) {
     onFileRemove,
     fileInputRef,
     onFileAdd,
+    uploadProgresses,
   };
 }

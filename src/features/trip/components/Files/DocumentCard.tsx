@@ -1,14 +1,27 @@
 import CloseIcon from "@mui/icons-material/Close";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
-import { Box, IconButton, Link, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  IconButton,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 interface Props {
   name: string;
   url?: string | null;
   onRemoveClick: () => void;
+  uploadProgress: number | undefined;
 }
 
-export default function DocumentCard({ name, url, onRemoveClick }: Props) {
+export default function DocumentCard({
+  name,
+  url,
+  onRemoveClick,
+  uploadProgress,
+}: Props) {
   return (
     <Box
       sx={{
@@ -20,9 +33,26 @@ export default function DocumentCard({ name, url, onRemoveClick }: Props) {
         width: 200,
       }}
     >
+      {uploadProgress && (
+        <CircularProgress
+          variant="determinate"
+          value={uploadProgress}
+          sx={{
+            position: "absolute",
+            top: "calc(50% - 2rem)",
+            left: "calc(50% - 1.25rem)",
+          }}
+        />
+      )}
       <IconButton
         onClick={onRemoveClick}
-        sx={{ position: "absolute", top: 8, right: 8, width: "fit-content" }}
+        sx={{
+          position: "absolute",
+          top: 8,
+          right: 8,
+          width: "fit-content",
+          opacity: uploadProgress ? 0.2 : 1,
+        }}
       >
         <CloseIcon />
       </IconButton>
@@ -38,6 +68,7 @@ export default function DocumentCard({ name, url, onRemoveClick }: Props) {
           p: 2,
           pt: 6,
           textDecoration: "none",
+          opacity: uploadProgress ? 0.2 : 1,
         }}
       >
         <Stack gap={2}>
