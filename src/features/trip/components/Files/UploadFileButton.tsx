@@ -13,7 +13,7 @@ interface Props {
   mainText: string;
   subText: string;
   showSubText: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   sx?: SxProps<Theme>;
 }
 export default function UploadFileButton({
@@ -52,5 +52,3 @@ export default function UploadFileButton({
     </Box>
   );
 }
-
-// 36:11
