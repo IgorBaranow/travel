@@ -16,6 +16,7 @@ import {
   ACCEPTED_DOCUMENT_FORMATS,
   ACCEPTED_PHOTO_FORMATS,
   MAX_FILE_SIZE_MB,
+  MAX_TRIP_PHOTOS,
 } from "../../constants";
 import type { DocumentToUpload, TripFile } from "../../types";
 import DocumentCard from "./DocumentCard";
@@ -197,6 +198,16 @@ function useFilesUploadForm(props: Props) {
 
   const onFileAdd = () => {
     if (disableChange) return;
+
+    if (
+      props.type === "photo" &&
+      files.length >= MAX_TRIP_PHOTOS &&
+      !(!files[files.length - 1].fileName && files.length === MAX_TRIP_PHOTOS)
+    ) {
+      return showErrorMessage(
+        `You can only upload maximum of ${MAX_TRIP_PHOTOS} photos!`,
+      );
+    }
     if (files.length === 0 || files[files.length - 1]?.fileName) {
       append({ fileName: "" });
     }
