@@ -48,6 +48,7 @@ export default function DocumentCard({
       )}
       <IconButton
         onClick={onRemoveClick}
+        area-label="remove photo"
         sx={{
           position: "absolute",
           top: 8,
