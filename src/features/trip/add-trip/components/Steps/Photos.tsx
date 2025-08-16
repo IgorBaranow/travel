@@ -1,3 +1,4 @@
+import { addTrip } from "@services/api/trip";
 import { useAppDispatch, useAppSelector } from "@store/index";
 
 import FilesForm from "../../../components/Files/FilesForm";
@@ -23,9 +24,9 @@ function usePhotosForm() {
   const dispatch = useAppDispatch();
   const trip = useAppSelector(selectWizardTrip);
 
-  const onSubmit = (data: TripFile[]) => {
+  const onSubmit = async (data: TripFile[]) => {
     dispatch(setPhotos(data));
-    // TODO: save wizard data
+    await addTrip({ ...trip, photos: data });
   };
 
   const onChange = (data: TripFile[]) => {
