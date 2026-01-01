@@ -5,7 +5,7 @@ import Expenses from "./components/Steps/Expenses";
 import PackingList from "./components/Steps/PackingList";
 import Photos from "./components/Steps/Photos";
 import Places from "./components/Steps/Places";
-import TravelInfo from "./components/Steps/TravelInfo";
+import TravelInfo from "./components/Steps/TripInfo";
 import { WizardSteps } from "./types";
 
 export const WIZARD_STEPS: WizardSteps[] = [
