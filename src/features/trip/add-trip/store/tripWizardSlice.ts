@@ -62,8 +62,12 @@ export const tripWizardSlice = createSlice({
       state.trip.startDate = action.payload.startDate;
       state.trip.previewImage = action.payload.previewImage;
     },
+
     setLocationFrom: (state, action: PayloadAction<Trip["locationFrom"]>) => {
       state.trip.locationFrom = action.payload;
+    },
+    setPreviewImage: (state, action: PayloadAction<Trip['previewImage']>) => {
+      state.trip.previewImage = action.payload;
     },
     setDestinations: (state, action: PayloadAction<Trip["destinations"]>) => {
       state.trip.destinations = action.payload;
@@ -100,6 +104,7 @@ export const {
   nextStep,
   previousStep,
   setTravelInformation,
+  setPreviewImage,
   setLocationFrom,
   setDestinations,
   setPlaces,

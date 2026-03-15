@@ -1,4 +1,4 @@
-import CloseIcon from "@mui/icons-material/Close";
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Box,
   Dialog,
@@ -6,16 +6,17 @@ import {
   DialogContent,
   IconButton,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
 
-import { useBreakpoints } from "@hooks/useBreakpoints";
+import { useBreakpoints } from '@hooks/useBreakpoints';
 
-import AppButton from "./AppButton";
+import AppButton from './AppButton';
 
 const DESKTOP_PADDING_X = 4;
 const MOBILE_PADDING_X = 2;
 const DESKTOP_PADDING_Y = 5;
 const MOBILE_PADDING_Y = 3;
+
 interface Props {
   title: string;
   isOpen: boolean;
@@ -25,6 +26,7 @@ interface Props {
   children: React.ReactNode;
   isForm?: boolean;
   maxWidth?: number;
+  isLoading?: boolean;
 }
 
 export default function AppDialog({
@@ -36,6 +38,7 @@ export default function AppDialog({
   title,
   isForm,
   maxWidth,
+  isLoading,
 }: Props) {
   const { md } = useBreakpoints();
 
@@ -48,7 +51,7 @@ export default function AppDialog({
         sx: {
           borderRadius: 2,
           width: { md: 864 },
-          maxWidth: maxWidth ?? "inherit",
+          maxWidth: maxWidth ?? 'inherit',
         },
       }}
       fullScreen={!md}
@@ -57,13 +60,13 @@ export default function AppDialog({
         aria-label="close"
         onClick={onClose}
         sx={{
-          position: "absolute",
+          position: 'absolute',
           right: 16,
           top: 24,
           color: (theme) => theme.palette.grey[500],
         }}
       >
-        <CloseIcon fontSize="large" sx={{ color: "text.primary" }} />
+        <CloseIcon fontSize="large" sx={{ color: 'text.primary' }} />
       </IconButton>
       <Typography
         textAlign="center"
@@ -76,7 +79,7 @@ export default function AppDialog({
       >
         {title}
       </Typography>
-      <Box component={isForm ? "form" : "div"}>
+      <Box component={isForm ? 'form' : 'div'}>
         <DialogContent
           sx={{
             px: { xs: MOBILE_PADDING_X, md: DESKTOP_PADDING_X },
@@ -91,16 +94,17 @@ export default function AppDialog({
             px: { xs: MOBILE_PADDING_X, md: DESKTOP_PADDING_X },
             pb: { xs: MOBILE_PADDING_Y, md: DESKTOP_PADDING_Y },
             pt: 3,
-            position: { xs: "fixed", md: "static" },
+            position: { xs: 'fixed', md: 'static' },
             bottom: 0,
-            width: "100%",
-            background: "white",
+            width: '100%',
+            background: 'white',
           }}
         >
           <AppButton
-            type={isForm ? "submit" : "button"}
+            type={isForm ? 'submit' : 'button'}
             fullWidth
             onClick={onPrimaryButtonClick}
+            loading={isLoading}
           >
             {primaryButtonText}
           </AppButton>
