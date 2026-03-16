@@ -9,7 +9,7 @@ interface Props {
   children: React.ReactNode;
   color: string;
   backgroundColor: string;
-  borderColor: string;
+  borderColor?: string;
   category: ExpenseCategory;
   isSmall?: boolean;
 }
