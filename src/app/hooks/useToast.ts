@@ -9,5 +9,11 @@ export default function useToast() {
     });
   };
 
-  return { showErrorMessage };
+  const showSuccessMessage = (message: string) => {
+    enqueueSnackbar(message, {
+      variant: 'success',
+    });
+  };
+
+  return { showErrorMessage, showSuccessMessage };
 }

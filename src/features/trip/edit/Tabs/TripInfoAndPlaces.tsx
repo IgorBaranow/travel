@@ -9,7 +9,7 @@ import { Colors } from '@config/styles';
 import PlacesForm from '@features/trip/components/PlacesForm';
 import DateSelectInput from '@features/ui/form/DateSelectInput';
 
-import type { Trip } from '../../types';
+import type { Expense, Trip } from '../../types';
 import ContentCard from './ContentCard';
 
 interface Props {
@@ -25,7 +25,7 @@ interface FormInput {
 }
 
 export default function TripInfoAndPlaces(props: Props) {
-  const totalBudget = 360;
+  const totalBudget = getTripTotalBudget(props.trip.expenses);
   const { control, formValues } = useTravelInfoForm(props);
 
   const onPlacesUpdate = (newPlaces: Trip['places']) =>
@@ -162,4 +162,8 @@ function useWatchChange(
 
     return () => formUpdateSubscription.unsubscribe();
   }, [onUpdateDebounced, watch]);
+}
+
+function getTripTotalBudget(expenses: Expense[]) {
+  return expenses.reduce((total, expense) => total + expense.amount, 0);
 }
