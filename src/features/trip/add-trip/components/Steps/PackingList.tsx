@@ -1,6 +1,6 @@
 import { type SubmitHandler } from "react-hook-form";
 
-import PackingListsForm from "@features/trip/components/Files/PackingListsForm";
+import PackingListsForm from "@features/trip/components/PackingListsForm";
 import { useAppDispatch, useAppSelector } from "@store/index";
 
 import type { Trip } from "../../../types";
