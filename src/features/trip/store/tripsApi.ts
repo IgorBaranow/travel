@@ -1,6 +1,12 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { addTrip, getTripById, getTrips, updateTrip } from '@services/api';
+import {
+  addTrip,
+  deleteTrip,
+  getTripById,
+  getTrips,
+  updateTrip,
+} from '@services/api';
 
 import type { Trip } from '../types';
 
@@ -43,6 +49,16 @@ export const tripsApi = createApi({
       },
       invalidatesTags: (_, __, { id }) => [{ type: 'Trips', id }],    
     }),
+    deleteTrip: builder.mutation<boolean, string>({
+      queryFn: async (tripId) => {
+        await deleteTrip(tripId);
+        return { data: true };
+      },
+      invalidatesTags: (_, __, id) => [
+        { type: 'Trips', id },
+        { type: 'Trips', id: 'LIST' },
+      ],
+    }),
   }),
 });
 
@@ -51,4 +67,5 @@ export const {
   useGetTripQuery,
   useAddTripMutation,
   useUpdateTripMutation,
+  useDeleteTripMutation,
 } = tripsApi;

@@ -21,12 +21,17 @@ interface Props {
   title: string;
   isOpen: boolean;
   onClose: () => void;
-  primaryButtonText: string;
-  onPrimaryButtonClick: () => void;
-  children: React.ReactNode;
+  primaryButtonText?: string;
+  onPrimaryButtonClick?: () => void;
+  onSecondaryButtonClick?: () => void;
+  secondaryButtonText?: string;
+  disableSecondaryButton?: boolean;
+  children?: React.ReactNode;
   isForm?: boolean;
   maxWidth?: number;
   isLoading?: boolean;
+  disableBottomTitlePadding?: boolean;
+  hideCloseButton?: boolean;
 }
 
 export default function AppDialog({
@@ -34,11 +39,16 @@ export default function AppDialog({
   onClose,
   primaryButtonText,
   onPrimaryButtonClick,
+  onSecondaryButtonClick,
+  secondaryButtonText,
+  disableSecondaryButton,
   children,
   title,
   isForm,
   maxWidth,
   isLoading,
+  disableBottomTitlePadding,
+  hideCloseButton,
 }: Props) {
   const { md } = useBreakpoints();
 
@@ -56,25 +66,27 @@ export default function AppDialog({
       }}
       fullScreen={!md}
     >
-      <IconButton
-        aria-label="close"
-        onClick={onClose}
-        sx={{
-          position: 'absolute',
-          right: 16,
-          top: 24,
-          color: (theme) => theme.palette.grey[500],
-        }}
-      >
-        <CloseIcon fontSize="large" sx={{ color: 'text.primary' }} />
-      </IconButton>
+      {!hideCloseButton && (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 16,
+            top: 24,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon fontSize="large" sx={{ color: 'text.primary' }} />
+        </IconButton>
+      )}
       <Typography
         textAlign="center"
         variant="h4"
         sx={{
-          pt: 8.75,
+          pt: hideCloseButton ? 5 : 8.75,
           px: { xs: MOBILE_PADDING_X, md: DESKTOP_PADDING_X },
-          pb: 3,
+          pb: disableBottomTitlePadding ? 0 : 3,
         }}
       >
         {title}
@@ -94,20 +106,33 @@ export default function AppDialog({
             px: { xs: MOBILE_PADDING_X, md: DESKTOP_PADDING_X },
             pb: { xs: MOBILE_PADDING_Y, md: DESKTOP_PADDING_Y },
             pt: 3,
-            position: { xs: 'fixed', md: 'static' },
+            position: { xs: 'absolute', md: 'static' },
             bottom: 0,
             width: '100%',
             background: 'white',
           }}
         >
-          <AppButton
-            type={isForm ? 'submit' : 'button'}
-            fullWidth
-            onClick={onPrimaryButtonClick}
-            loading={isLoading}
-          >
-            {primaryButtonText}
-          </AppButton>
+         {secondaryButtonText && (
+            <AppButton
+              disabled={disableSecondaryButton}
+              variant="outlined"
+              type={isForm ? 'submit' : 'button'}
+              fullWidth
+              onClick={onSecondaryButtonClick}
+            >
+              {secondaryButtonText}
+            </AppButton>
+          )}
+          {primaryButtonText && (
+            <AppButton
+              type={isForm ? 'submit' : 'button'}
+              fullWidth
+              onClick={onPrimaryButtonClick}
+              loading={isLoading}
+            >
+              {primaryButtonText}
+            </AppButton>
+          )}
         </DialogActions>
       </Box>
     </Dialog>
