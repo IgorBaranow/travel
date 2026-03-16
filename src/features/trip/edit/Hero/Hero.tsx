@@ -1,14 +1,23 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 
-import { usePreviewImageSrc } from '../hooks/usePreviewImageHook';
-import type { Trip } from '../types';
+import { usePreviewImageSrc } from '../../hooks/usePreviewImageHook';
+import type { Trip } from '../../types';
+import DestinationsForm from './DestinationsForm/DestinationsForm';
 
 interface Props {
   trip: Trip;
+  onUpdate: (data: Partial<Trip>) => void;
 }
 
-export default function Hero({ trip }: Props) {
+export default function Hero({ trip, onUpdate }: Props) {
   const previewImageSrc = usePreviewImageSrc(trip.previewImage);
+
+  const onDestinationsUpdate = (newValues: {
+    locationFrom: Trip['locationFrom'];
+    destinations: Trip['destinations'];
+  }) => {
+    onUpdate({ ...newValues });
+  };
 
   return (
     <Stack
@@ -37,11 +46,16 @@ export default function Hero({ trip }: Props) {
         },
       }}
     >
-      <Box style={{ position: 'relative' }}>
+      <Stack
+        alignItems="center"
+        gap={2}
+        sx={{ position: 'relative', width: '100%' }}
+      >
         <Typography variant="h2" color="white">
           {trip.name}
         </Typography>
-      </Box>
+        <DestinationsForm trip={trip} onChange={onDestinationsUpdate} />
+      </Stack>
     </Stack>
   );
 }
