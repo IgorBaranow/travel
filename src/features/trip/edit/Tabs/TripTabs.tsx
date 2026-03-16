@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import CameraEnhanceIcon from '@mui/icons-material/CameraEnhance';
 import ChecklistIcon from '@mui/icons-material/Checklist';
@@ -8,6 +9,10 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 import { Box, Tab, Tabs } from '@mui/material';
 
 import type { Trip } from '../../types';
+import Documents from './Documents';
+import Expenses from './Expenses';
+import PackingLists from './PackingLists';
+import Photos from './Photos';
 import TripInfoAndPlaces from './TripInfoAndPlaces';
 
 interface Props {
@@ -38,10 +43,16 @@ function CustomTabPanel({
 }
 
 export default function TripTabs({ trip, onUpdate }: Props) {
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedTab, setSelectedTab] = useState(
+    Number(searchParams.get('selectedTab')) || 0,
+  );
 
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue);
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set('selectedTab', newValue.toString());
+    setSearchParams(newSearchParams);
   };
 
   return (
@@ -92,16 +103,16 @@ export default function TripTabs({ trip, onUpdate }: Props) {
         <TripInfoAndPlaces trip={trip} onUpdate={onUpdate} />
       </CustomTabPanel>
       <CustomTabPanel value={selectedTab} index={1}>
-        Documents
+        <Documents trip={trip} onUpdate={onUpdate} />
       </CustomTabPanel>
       <CustomTabPanel value={selectedTab} index={2}>
-        Packing List
+        <PackingLists trip={trip} onUpdate={onUpdate} />
       </CustomTabPanel>
       <CustomTabPanel value={selectedTab} index={3}>
-        Expenses
+        <Expenses trip={trip} onUpdate={onUpdate} />
       </CustomTabPanel>
       <CustomTabPanel value={selectedTab} index={4}>
-        Photos
+        <Photos trip={trip} onUpdate={onUpdate} />
       </CustomTabPanel>
     </Box>
   );
