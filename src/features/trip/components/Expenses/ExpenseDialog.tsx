@@ -178,7 +178,11 @@ function useExpenseForm({ onSave, onClose }: Props) {
   const selectedCategory = watch("category");
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    onSave({ id: uuidv4(), ...data });
+    onSave({ 
+      id: uuidv4(), 
+      ...data, 
+      amount: Number(data.amount) 
+    });
     onReset();
   };
 
