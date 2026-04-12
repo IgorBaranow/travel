@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { useBreakpoints } from '@hooks/useBreakpoints';
 
-import type { Trip } from '../../../types';
+import type { Trip } from '../../../../types';
 import DesktopDestinationsForm from './DesktopDestinationsForm';
 import MobileDestinationsForm from './MobileDestinationsForm';
 

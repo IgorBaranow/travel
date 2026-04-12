@@ -13,7 +13,7 @@ import AppDialog from '@features/ui/AppDialog';
 import AppIconButton from '@features/ui/AppIconButton';
 import useDialog from '@hooks/useDialog';
 
-import { MAX_TRIP_DESTINATIONS } from '../../../constants';
+import { MAX_TRIP_DESTINATIONS } from '../../../../constants';
 import type { DestinationsFormInput } from './DestinationsForm';
 
 interface Props {
@@ -53,7 +53,7 @@ export default function MobileDestinationsForm({
             height: 36,
             textDecoration: 'underline',
             borderRadius: 1,
-            px: 2,
+            px: 1,
             color: 'white',
           }}
         >

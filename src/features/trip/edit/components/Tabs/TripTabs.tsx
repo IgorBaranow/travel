@@ -8,7 +8,7 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import { Box, Tab, Tabs } from '@mui/material';
 
-import type { Trip } from '../../types';
+import type { Trip } from '../../../types';
 import Documents from './Documents';
 import Expenses from './Expenses';
 import PackingLists from './PackingLists';

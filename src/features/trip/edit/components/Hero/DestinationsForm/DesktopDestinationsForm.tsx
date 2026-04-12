@@ -5,11 +5,12 @@ import {
 } from 'react-hook-form';
 
 import AddIcon from '@mui/icons-material/Add';
+import RoomIcon from '@mui/icons-material/Room';
 import { Box, ButtonBase, FormHelperText, Input, Stack } from '@mui/material';
 
-import { FontWeights } from '@config/styles';
+import { Colors, FontWeights } from '@config/styles';
 
-import { MAX_TRIP_DESTINATIONS } from '../../../constants';
+import { MAX_TRIP_DESTINATIONS } from '../../../../constants';
 import type { DestinationsFormInput } from './DestinationsForm';
 
 interface Props {
@@ -34,7 +35,7 @@ export default function DesktopDestinationsForm({
     <Stack
       gap={3}
       direction="row"
-      sx={{ height: 70 }}
+      sx={{ height: 36 }}
       flexWrap="wrap"
       justifyContent="center"
       alignItems="center"
@@ -45,6 +46,19 @@ export default function DesktopDestinationsForm({
         direction="row"
         sx={{ position: 'relative' }}
       >
+        <Stack
+          sx={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: Colors.darkBlue,
+            borderRadius: 1,
+            p: 0.75,
+            width: 'fit-content',
+            height: 'fit-content',
+          }}
+        >
+          <RoomIcon sx={{ color: 'white' }} />
+        </Stack>
         <Controller
           name="locationFrom"
           control={control}
@@ -75,7 +89,7 @@ export default function DesktopDestinationsForm({
                 sx={{
                   maxWidth: 150,
                   position: 'absolute',
-                  top: 44,
+                  top: 32,
                   left: 0,
                 }}
               >
@@ -137,7 +151,7 @@ export default function DesktopDestinationsForm({
                   sx={{
                     maxWidth: 150,
                     position: 'absolute',
-                    top: 44,
+                    top: 32,
                     left: -20,
                   }}
                 >
