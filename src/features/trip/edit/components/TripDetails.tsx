@@ -20,8 +20,8 @@ import {
   useDeleteTripMutation,
   useGetTripQuery,
   useUpdateTripMutation,
-} from '../store/tripsApi';
-import type { Trip } from '../types';
+} from '../../store/tripsApi';
+import type { Trip } from '../../types';
 import Hero from './Hero/Hero';
 import TripTabs from './Tabs/TripTabs';
 

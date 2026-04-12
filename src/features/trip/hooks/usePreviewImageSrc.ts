@@ -23,13 +23,16 @@ export function usePreviewImageSrc(previewImage?: PreviewImage | null) {
 async function getPreviewImageSrc(previewImage?: PreviewImage | null) {
   let previewImageSrc = null;
 
-  if (previewImage?.templateImageId) {
+  if (previewImage?.url) {
+    previewImageSrc = previewImage?.url;
+  } else if (previewImage?.templateImageId) {
     previewImageSrc = previewImage?.templateImageId
       ? TRIP_PREVIEW_IMAGES.find(
           (image) => image.id === previewImage?.templateImageId,
         )?.src
       : null;
   } else if (previewImage?.storagePath) {
+    console.log('here');
     previewImageSrc = await getDownloadURL(previewImage.storagePath);
   }
 

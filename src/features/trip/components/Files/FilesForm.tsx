@@ -88,7 +88,7 @@ export default function FilesForm(props: Props) {
         return (
           <Stack
             key={file.fileName}
-            sx={{ height: isPhotosForm ? { xs: 171, md: 250 } : 260 }}
+            sx={{ height: isPhotosForm ? { xs: 170, md: 250 } : 260 }}
           >
             {showCard && (
               <>
@@ -106,8 +106,8 @@ export default function FilesForm(props: Props) {
                 {isPhotosForm && (
                   <Box
                     sx={{
-                      width: { xs: 171, md: 261 },
-                      height: { xs: 171, md: 250 },
+                      width: { xs: 170, md: 261 },
+                      height: { xs: 170, md: 250 },
                     }}
                   >
                     <PhotoCard

@@ -9,7 +9,7 @@ import { Colors } from '@config/styles';
 import PlacesForm from '@features/trip/components/PlacesForm';
 import DateSelectInput from '@features/ui/form/DateSelectInput';
 
-import type { Expense, Trip } from '../../types';
+import type { Expense, Trip } from '../../../types';
 import ContentCard from './ContentCard';
 
 interface Props {
@@ -63,7 +63,10 @@ export default function TripInfoAndPlaces(props: Props) {
                   control={control}
                   requireErrorText="Please specify start date!"
                   maxDate={formValues.endDate}
-                  sx={{ svg: { color: Colors.secondaryBlue }, maxWidth: 150 }}
+                  sx={{
+                    svg: { color: Colors.secondaryBlue },
+                    maxWidth: { md: 150 },
+                  }}
                 />
                 <DateSelectInput
                   label="End date"
@@ -71,11 +74,17 @@ export default function TripInfoAndPlaces(props: Props) {
                   control={control}
                   requireErrorText="Please specify end date!"
                   minDate={formValues.startDate}
-                  sx={{ svg: { color: Colors.secondaryBlue }, maxWidth: 150 }}
+                  sx={{
+                    svg: { color: Colors.secondaryBlue },
+                    maxWidth: { md: 150 },
+                  }}
                 />
-                <Stack gap={0.5}>
+                <Stack gap={0.5} sx={{ display: { xs: 'none', md: 'flex' } }}>
                   <InputLabel
-                    sx={{ fontSize: '0.875rem', lineHeight: '1.313rem' }}
+                    sx={{
+                      fontSize: '0.68rem',
+                      lineHeight: '0.985rem',
+                    }}
                   >
                     Budget
                   </InputLabel>

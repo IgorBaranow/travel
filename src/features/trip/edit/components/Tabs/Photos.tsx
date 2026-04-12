@@ -1,5 +1,5 @@
-import FilesForm from '../../components/Files/FilesForm';
-import type { Trip, TripFile } from '../../types';
+import FilesForm from '../../../components/Files/FilesForm';
+import type { Trip, TripFile } from '../../../types';
 import ContentCard from './ContentCard';
 
 interface Props {
