@@ -18,14 +18,13 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     /* Import Aliases */
-    "baseUrl": ".",
     "paths": {
-      "@pages/*": ["src/pages/*"],
-      "@features/*": ["src/features/*"],
-      "@config/*": ["src/app/config/*"],
-      "@store/*": ["src/app/store/*"],
-      "@services/*": ["src/app/services/*"],
-      "@hooks/*": ["src/app/hooks/*"]
+      "@pages/*": ["./src/pages/*"],
+      "@features/*": ["./src/features/*"],
+      "@config/*": ["./src/app/config/*"],
+      "@store/*": ["./src/app/store/*"],
+      "@services/*": ["./src/app/services/*"],
+      "@hooks/*": ["./src/app/hooks/*"]
     }
   },
   "include": ["src"],
