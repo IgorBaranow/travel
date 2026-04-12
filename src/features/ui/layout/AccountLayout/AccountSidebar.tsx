@@ -22,7 +22,7 @@ import AppButton from "@features/ui/AppButton";
 import Logo from "@features/ui/logo/Logo";
 import { useBreakpoints } from "@hooks/useBreakpoints";
 import { logOut } from "@services/api";
-import { useAppSelector } from "@store/index";
+import { persistor, useAppSelector } from '@store/index';
 
 import { ACCOUNT_LINKS } from "./data";
 
@@ -42,8 +42,10 @@ export default function AccountSidebar({ isMinimized, onClose }: Props) {
     }
   };
 
-  const onLogout = () => {
-    logOut();
+  const onLogout = async () => {
+    await logOut();
+    persistor.purge();
+    window.location.reload();
   };
 
   return (
