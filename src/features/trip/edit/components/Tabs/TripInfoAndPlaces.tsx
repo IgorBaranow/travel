@@ -9,7 +9,8 @@ import { Colors } from '@config/styles';
 import PlacesForm from '@features/trip/components/PlacesForm';
 import DateSelectInput from '@features/ui/form/DateSelectInput';
 
-import type { Expense, Trip } from '../../../types';
+import type { Trip } from '../../../types';
+import { getTripTotalBudget } from '../../../utils/getTripTotalBudget';
 import ContentCard from './ContentCard';
 
 interface Props {
@@ -189,8 +190,4 @@ function useWatchChange(
 
     return () => formUpdateSubscription.unsubscribe();
   }, [onUpdateDebounced, watch]);
-}
-
-function getTripTotalBudget(expenses: Expense[]) {
-  return expenses.reduce((total, expense) => total + expense.amount, 0);
 }
