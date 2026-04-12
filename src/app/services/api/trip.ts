@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore';
 
 import type { Trip } from '@features/trip/types';
-import { auth, firestore } from '@services/firebase';
+import { auth, firestore, getDownloadURL } from '@services/firebase';
 
 function authenticate<T>(authenticatedFn: () => Promise<T>) {
   if (!auth.currentUser) {
@@ -30,7 +30,31 @@ export async function getTrips() {
 
     const querySnapshot = await getDocs(userTripsQuery);
 
-    return querySnapshot.docs.map((doc) => doc.data() as Trip);
+    const fetchedTrips = querySnapshot.docs.map((doc) => doc.data() as Trip);
+
+    const tripsPromises = await Promise.allSettled(
+      fetchedTrips.map(async (trip) => {
+        if (trip.previewImage?.storagePath) {
+          trip.previewImage.url = await getDownloadURL(
+            trip.previewImage?.storagePath,
+          );
+        }
+
+        return trip;
+      }),
+    );
+
+    const tripsWithPreviewImages = tripsPromises
+      .map((trip) => {
+        if (trip.status === 'fulfilled') {
+          return trip.value;
+        } else {
+          return null;
+        }
+      })
+      .filter(Boolean);
+
+    return tripsWithPreviewImages as Trip[];
   });
 }
 
@@ -47,7 +71,15 @@ export async function getTripById(tripId?: string) {
       throw new Error('Trip not found!');
     }
 
-    return tripSnap.data() as Trip;
+    const trip = tripSnap.data() as Trip;
+
+    if (trip.previewImage?.storagePath) {
+      trip.previewImage.url = await getDownloadURL(
+        trip.previewImage?.storagePath,
+      );
+    }
+
+    return trip;
   });
 }
 
