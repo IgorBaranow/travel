@@ -15,9 +15,9 @@ export const tripsApi = createApi({
   baseQuery: fakeBaseQuery(),
   tagTypes: ['Trips'],
   endpoints: (builder) => ({
-    getTrips: builder.query<Trip[], void>({
-      queryFn: async () => {
-        const data = await getTrips();
+    getTrips: builder.query<Trip[], { limit?: number } | void>({
+      queryFn: async (options) => {
+        const data = await getTrips(options?.limit);
         return { data };
       },
       providesTags: (result) =>

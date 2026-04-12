@@ -9,7 +9,8 @@ import { Colors } from '@config/styles';
 import PlacesForm from '@features/trip/components/PlacesForm';
 import DateSelectInput from '@features/ui/form/DateSelectInput';
 
-import type { Expense, Trip } from '../../../types';
+import type { Trip } from '../../../types';
+import { getTripTotalBudget } from '../../../utils/getTripTotalBudget';
 import ContentCard from './ContentCard';
 
 interface Props {
@@ -63,6 +64,15 @@ export default function TripInfoAndPlaces(props: Props) {
                   control={control}
                   requireErrorText="Please specify start date!"
                   maxDate={formValues.endDate}
+                  validate={{
+                    startDate: (startDate) =>
+                      !startDate ||
+                      (startDate &&
+                        formValues.endDate &&
+                        startDate < formValues.endDate)
+                        ? undefined
+                        : 'Start date should be before end date!',
+                  }}
                   sx={{
                     svg: { color: Colors.secondaryBlue },
                     maxWidth: { md: 150 },
@@ -74,6 +84,15 @@ export default function TripInfoAndPlaces(props: Props) {
                   control={control}
                   requireErrorText="Please specify end date!"
                   minDate={formValues.startDate}
+                  validate={{
+                    endDate: (endDate) =>
+                      !endDate ||
+                      (endDate &&
+                        formValues.startDate &&
+                        formValues.startDate < endDate)
+                        ? undefined
+                        : 'End date should be after start date!',
+                  }}
                   sx={{
                     svg: { color: Colors.secondaryBlue },
                     maxWidth: { md: 150 },
@@ -171,8 +190,4 @@ function useWatchChange(
 
     return () => formUpdateSubscription.unsubscribe();
   }, [onUpdateDebounced, watch]);
-}
-
-function getTripTotalBudget(expenses: Expense[]) {
-  return expenses.reduce((total, expense) => total + expense.amount, 0);
 }
