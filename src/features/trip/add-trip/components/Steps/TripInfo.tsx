@@ -13,10 +13,11 @@ import {
 import { Colors } from '@config/styles';
 import DateSelectInput from '@features/ui/form/DateSelectInput';
 import useDialog from '@hooks/useDialog';
+import { useBreakpoints } from '@hooks/useBreakpoints';
 import { useAppDispatch, useAppSelector } from '@store/index';
 
 import PreviewImageDialog from '../../../components/PreviewImageDialog';
-import { usePreviewImageSrc } from '../../../hooks/usePreviewImageHook';
+import { usePreviewImageSrc } from '../../../hooks/usePreviewImageSrc';
 import type { Trip } from '../../../types';
 import {
   nextStep,
@@ -35,8 +36,10 @@ interface FormInput {
 }
 
 export default function TripInfo() {
+  const { md } = useBreakpoints();
   const { isOpen, open, close } = useDialog();
   const {
+    tripId,
     handleSubmit,
     control,
     onSubmit,
@@ -121,7 +124,7 @@ export default function TripInfo() {
                 fullWidth
                 id="name"
                 label="Trip Name"
-                autoFocus
+                autoFocus={md}
                 helperText={fieldState.error?.message}
                 error={Boolean(fieldState.error)}
                 {...field}
@@ -173,6 +176,7 @@ export default function TripInfo() {
       <Pagination />
       <PreviewImageDialog
         key={previewImageSrc}
+        tripId={tripId}
         isOpen={isOpen}
         onClose={close}
         onSave={onPreviewImageSave}
@@ -238,5 +242,6 @@ function useTravelInfoForm({
     previewImageSrc,
     onPreviewImageSave,
     onPreviewImageChange,
+    tripId: trip.id,
   };
 }
