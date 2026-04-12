@@ -24,3 +24,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Build and cash
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
