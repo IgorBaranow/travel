@@ -1,42 +1,51 @@
-import { Route, Routes } from "react-router-dom";
+import { Suspense, lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
-import AccountLayout from "@features/ui/layout/AccountLayout/AccountLayout";
-import AuthLayout from "@features/ui/layout/AuthLayout";
-import AddTripPage from "@pages/account/add-trip";
-import DashboardPage from "@pages/account/dashboard";
+import Loader from '@features/ui/Loader';
+import AccountLayout from '@features/ui/layout/AccountLayout/AccountLayout';
+import AuthLayout from '@features/ui/layout/AuthLayout';
+import AddTripPage from '@pages/account/add-trip';
+import DashboardPage from '@pages/account/dashboard';
 import TripDetailsPage from '@pages/account/trips/trip-details';
 import TripsPage from '@pages/account/trips/trips';
-import HomePage from "@pages/home";
-import LoginPage from "@pages/login";
-import NotFoundPage from "@pages/not-found";
-import SignUpPage from "@pages/sign-up";
+import NotFoundPage from '@pages/not-found';
 
-import { AppRoutes } from "../AppRoutes";
-import ProtectedRoute from "./ProtectedRoute";
+import { AppRoutes } from '../AppRoutes';
+import ProtectedRoute from './ProtectedRoute';
+
+const HomePage = lazy(() => import('@pages/home'));
+const LoginPage = lazy(() => import('@pages/login'));
+const SignUpPage = lazy(() => import('@pages/sign-up'));
 
 export default function AppRouter() {
   return (
-    <Routes>
-      {/* Public Pages */}
-      <Route path={AppRoutes.home} element={<HomePage />} />
-      <Route element={<AuthLayout />}>
-        <Route path={AppRoutes.signUp} element={<SignUpPage />} />
-        <Route path={AppRoutes.login} element={<LoginPage />} />
-      </Route>
-      {/* Protected Pages */}
-      <Route element={<ProtectedRoute />}>
-        <Route element={<AccountLayout />}>
-          <Route path={AppRoutes.dashboard} element={<DashboardPage />}></Route>
-          <Route path={AppRoutes.trips} element={<TripsPage />}></Route>
-          <Route
-          path={`${AppRoutes.trips}/:tripId`}
-          element={<TripDetailsPage />}
-        />
-          <Route path={AppRoutes.addTrip} element={<AddTripPage />}></Route>
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        {/* Public Pages */}
+        <Route path={AppRoutes.home} element={<HomePage />} />
+        <Route element={<AuthLayout />}>
+          <Route path={AppRoutes.signUp} element={<SignUpPage />} />
+          <Route path={AppRoutes.login} element={<LoginPage />} />
         </Route>
-      </Route>
-      {/* Error Page */}
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+        {/* Account Pages */}
+        <Route
+          element={
+            <ProtectedRoute>
+              <AccountLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path={AppRoutes.dashboard} element={<DashboardPage />} />
+          <Route path={AppRoutes.trips} element={<TripsPage />} />
+          <Route
+            path={`${AppRoutes.trips}/:tripId`}
+            element={<TripDetailsPage />}
+          />
+          <Route path={AppRoutes.addTrip} element={<AddTripPage />} />
+        </Route>
+        {/* Not Found Page */}
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Suspense>
   );
 }
